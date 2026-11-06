@@ -1,0 +1,9 @@
+node_modules
+dist
+*.log
+.DS_Store
+# The Android project is generated fresh by the GitHub Action each build.
+android
+ios
+*.keystore
+*.jks
