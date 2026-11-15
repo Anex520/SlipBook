@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
-import { APP_NAME } from '../config'
+import { APP_NAME, APP_VERSION } from '../config'
+import PoweredBy from '../components/PoweredBy'
 import { useApp } from '../lib/store'
 import { exportBackup, exportCsv, readBackup } from '../lib/backup'
 import { go } from '../lib/route'
@@ -175,6 +176,11 @@ export default function Settings() {
       <button type="button" className="link danger" onClick={handleErase}>
         Erase all data on this phone
       </button>
+
+      <p className="version">
+        {APP_NAME} version {APP_VERSION}
+      </p>
+      <PoweredBy />
     </>
   )
 }

@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { APP_NAME } from '../config'
+import PoweredBy from '../components/PoweredBy'
 import { useApp } from '../lib/store'
 import { readBackup } from '../lib/backup'
 import { go } from '../lib/route'
@@ -75,6 +76,7 @@ export default function Onboarding() {
           {error}
         </p>
       )}
+      <PoweredBy />
     </div>
   )
 }

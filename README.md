@@ -1,4 +1,4 @@
-# Slipbook (version 1)
+# Slipbook (version 1.5)
 
 Invoices, receipts and a sales record that work without internet. No account: the owner types a business
 name once. Everything is stored on the phone.
@@ -30,6 +30,22 @@ Records live only on the phone. **Settings, Back up everything** saves one `.jso
 Google Drive or send to themselves on WhatsApp. **Restore** (also on the first screen after reinstalling)
 loads it back. The Sales page reminds the owner after 7 days. **Export sales (CSV)** opens in Excel or Sheets.
 
+## What changed in 1.5 (design only)
+Black, white and grey theme with a matching dark mode, Plus Jakarta Sans, a new Home (hero total, who owes you,
+spreadsheet-style records with totals, money by month), a floating tab bar, restyled invoice/receipt and PDF,
+new icons, and a download website in `site/`. The data model, store, routes and behaviour are unchanged.
+If `npm install` can't find `@fontsource/plus-jakarta-sans`, go back to `@fontsource/schibsted-grotesk` and
+`@fontsource/zilla-slab` (see the note in `src/main.jsx`) and the font names at the top of `src/index.css`.
+
+## The download website (GitHub Pages)
+`site/index.html` is the page people visit to install the app. The workflow also publishes the web version of the
+app at `/app/` (for iPhone users). Two one-time steps:
+1. Make the repository **public** (Settings, General, Danger Zone, Change visibility).
+2. Settings, **Pages**, Source: **GitHub Actions**.
+The APK is always named `Slipbook.apk`, so this link never changes:
+`https://github.com/Anex520/SlipBook/releases/download/latest/Slipbook.apk`
+Each build sets `versionName` to `1.5.<run number>`.
+
 ## Renaming the app
 Edit `src/config.js`, the `<title>` in `index.html`, `public/manifest.webmanifest`, and `package.json`.
 
@@ -53,7 +69,7 @@ Edit `src/config.js`, the `<title>` in `index.html`, `public/manifest.webmanifes
 ### Set up a signing key (do this before giving the app to anyone)
 Without it the workflow builds a test APK signed with a throwaway key. That works for trying the app, but each build is
 signed differently, so a new build can't be installed over the old one without uninstalling it, and that **deletes the
-records stored on the phone**. A permanent key fixes this, and it will also be needed to recognise devices in version 1.5.
+records stored on the phone**. A permanent key fixes this, and it will also be needed to recognise devices in version 2.
 ```
 keytool -genkeypair -v -keystore slipbook.jks -alias slipbook -keyalg RSA -keysize 2048 -validity 10000
 base64 -w0 slipbook.jks        # on a Mac: base64 -i slipbook.jks

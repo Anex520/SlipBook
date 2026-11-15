@@ -1,11 +1,12 @@
 import { jsPDF } from 'jspdf'
 import { fmtDate, fmtDay, invoiceNo, lineTotal, nairaPdf, slugify } from './format'
 
-const INK = [20, 26, 60]
-const SOFT = [88, 96, 129]
-const RED = [201, 48, 29]
-const BLUE = [29, 60, 180]
-const RULE = [203, 210, 230]
+// Black, white and greys only.
+const INK = [15, 15, 17]
+const SOFT = [102, 102, 110]
+const MID = [60, 60, 66]
+const RULE = [220, 220, 224]
+const WHITE = [255, 255, 255]
 
 // Builds the invoice (or receipt, once paid) as an A4 PDF.
 // Returns { blob, filename } so it can be shared or saved.
@@ -41,10 +42,10 @@ export function buildInvoicePdf(inv) {
   doc.text(bizLines, M, y + 14)
 
   doc.setFontSize(20)
-  color(BLUE)
+  color(INK)
   doc.text(paid ? 'RECEIPT' : 'INVOICE', R, y + 14, { align: 'right' })
   doc.setFontSize(12)
-  color(RED)
+  color(SOFT)
   doc.text(`No. ${invoiceNo(inv.number)}`, R, y + 32, { align: 'right' })
 
   let left = y + 14 + (bizLines.length - 1) * 24 + 16
@@ -137,20 +138,21 @@ export function buildInvoicePdf(inv) {
   })
 
   // ----- Total -----
-  ensure(80)
-  y += 28
-  doc.setFont('helvetica', 'bold')
+  ensure(90)
+  y += 22
+  const boxX = 330
+  const boxH = 44
+  doc.setFillColor(INK[0], INK[1], INK[2])
+  doc.roundedRect(boxX, y, R - boxX, boxH, 8, 8, 'F')
+  doc.setFont('helvetica', 'normal')
   doc.setFontSize(10)
-  color(SOFT)
-  doc.text(paid ? 'Paid in full' : 'Total due', 360, y)
+  color([200, 200, 205])
+  doc.text(paid ? 'Paid in full' : 'Total due', boxX + 16, y + 27)
+  doc.setFont('helvetica', 'bold')
   doc.setFontSize(16)
-  color(INK)
-  doc.text(nairaPdf(total), R, y, { align: 'right' })
-  y += 12
-  stroke(INK)
-  doc.setLineWidth(1.2)
-  doc.line(360, y, R, y)
-  y += 30
+  color(WHITE)
+  doc.text(nairaPdf(total), R - 16, y + 28, { align: 'right' })
+  y += boxH + 30
 
   // ----- Pay to (unpaid only) -----
   const bank = inv.bank || {}
@@ -191,7 +193,7 @@ export function buildInvoicePdf(inv) {
     doc.setPage(doc.getNumberOfPages())
     doc.setFont('helvetica', 'bold')
     doc.setFontSize(34)
-    color(RED)
+    color(MID)
     doc.text('PAID', R - 150, Math.max(y + 40, 300), { angle: 9 })
   }
 

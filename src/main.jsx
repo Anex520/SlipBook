@@ -1,10 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import '@fontsource/schibsted-grotesk/400.css'
-import '@fontsource/schibsted-grotesk/600.css'
-import '@fontsource/schibsted-grotesk/700.css'
-import '@fontsource/zilla-slab/600.css'
-import '@fontsource/zilla-slab/700.css'
+// If npm can't install Plus Jakarta Sans, swap these lines for the version 1 fonts
+// (@fontsource/schibsted-grotesk and @fontsource/zilla-slab) and the two font names in index.css.
+import '@fontsource/plus-jakarta-sans/400.css'
+import '@fontsource/plus-jakarta-sans/500.css'
+import '@fontsource/plus-jakarta-sans/600.css'
+import '@fontsource/plus-jakarta-sans/700.css'
+import '@fontsource/plus-jakarta-sans/800.css'
 import './index.css'
 import App from './App.jsx'
 import { AppProvider } from './lib/store.jsx'

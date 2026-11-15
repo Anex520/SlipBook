@@ -1,5 +1,5 @@
 // Keeps the app working without internet once it has been opened online one time.
-const CACHE = 'slipbook-v1'
+const CACHE = 'slipbook-v1-5'
 
 self.addEventListener('install', (event) => {
   self.skipWaiting()

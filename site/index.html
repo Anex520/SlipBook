@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0a0a0b" />
+<title>Slipbook: invoices, receipts and sales records that work offline</title>
+<meta name="description" content="Slipbook is an Android app for small businesses. Make an invoice, send it on WhatsApp, confirm payment and keep your sales record. Works without internet." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<style>
+:root{--paper:#ececed;--surface:#fff;--ink:#0f0f11;--soft:#66666e;--rule:#e4e4e7;--wash:#f4f4f5;--on-ink:#fff;
+--dark:linear-gradient(145deg,#080809 0%,#222226 60%,#38383e 100%);--shadow:0 1px 2px rgba(0,0,0,.04),0 12px 32px -16px rgba(0,0,0,.2);
+--font:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+@media (prefers-color-scheme:dark){:root{--paper:#09090a;--surface:#151517;--ink:#f5f5f6;--soft:#9a9aa3;--rule:#27272b;--wash:#1e1e21;--on-ink:#0a0a0b;
+--dark:linear-gradient(145deg,#2a2a2f 0%,#17171a 60%,#101012 100%);--shadow:0 0 0 1px rgba(255,255,255,.06)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}img{max-width:100%;display:block}
+h1,h2,h3{letter-spacing:-.03em;line-height:1.12;margin:0 0 16px}
+h1{font-size:clamp(2.4rem,8vw,4rem);font-weight:800}h2{font-size:clamp(1.7rem,5vw,2.4rem);font-weight:800}h3{font-size:1.15rem;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
+p{margin:0 0 16px}.soft{color:var(--soft)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+section{padding:80px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:0 32px;border-radius:16px;font-weight:700;font-size:1.05rem;text-decoration:none;border:1.5px solid transparent}
+.btn-light{background:#fff;color:#0a0a0b}.btn-ghost{border-color:rgba(255,255,255,.35);color:#fff}
+.btn-dark{background:var(--ink);color:var(--on-ink)}
+.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid currentColor;outline-offset:3px}
+
+/* top */
+.hero{background:var(--dark);color:#fff;padding:0 0 88px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-160px;top:-200px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);pointer-events:none}
+nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0 56px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.25rem;letter-spacing:-.03em;text-decoration:none}
+.brand img{width:40px;height:40px;border-radius:12px}
+nav a.small{font-size:.95rem;font-weight:600;opacity:.8;text-decoration:none}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;position:relative;z-index:1}
+.eyebrow{display:inline-block;padding:6px 16px;border:1.5px solid rgba(255,255,255,.3);border-radius:999px;font-size:.85rem;font-weight:600;margin-bottom:24px}
+.hero p.lead{font-size:1.2rem;color:rgba(255,255,255,.72);max-width:34ch;margin-bottom:32px}
+.cta{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:16px}
+.fine{font-size:.9rem;color:rgba(255,255,255,.6)}
+.phone{width:100%;max-width:300px;margin:0 auto;border:9px solid #000;border-radius:44px;background:#000;box-shadow:0 40px 80px -30px rgba(0,0,0,.7),0 0 0 1.5px rgba(255,255,255,.14);overflow:hidden}
+.phone img{width:100%;border-radius:34px}
+.hero .phone{transform:rotate(3deg)}
+
+/* cards */
+.grid{display:grid;gap:24px}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--surface);border-radius:24px;padding:32px;box-shadow:var(--shadow)}
+.num{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--on-ink);font-weight:800;margin-bottom:16px}
+.card p{margin:0;color:var(--soft)}
+.card .btn{margin-top:24px}
+.head{max-width:620px;margin-bottom:48px}
+.dark{background:var(--dark);color:#fff}.dark .soft,.dark .card p{color:rgba(255,255,255,.68)}
+.dark .card{background:rgba(255,255,255,.06);box-shadow:0 0 0 1px rgba(255,255,255,.1)}
+.dark .num{background:#fff;color:#0a0a0b}
+.feature{display:flex;flex-direction:column;gap:8px}
+.shots{display:grid;grid-template-columns:repeat(5,minmax(220px,1fr));gap:24px;overflow-x:auto;padding:8px 24px 40px;scroll-snap-type:x mandatory;margin:0 -24px}
+.shots .phone{max-width:260px;scroll-snap-align:center;border-width:8px;border-radius:38px;box-shadow:var(--shadow)}
+.shots figure{margin:0;text-align:center}.shots figcaption{margin-top:16px;font-weight:600;font-size:.95rem;color:var(--soft)}
+.steps{counter-reset:s;list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:16px;background:var(--surface);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--on-ink);font-weight:800}
+.steps strong{display:block;font-size:1.05rem}.steps span{color:var(--soft)}
+details{background:var(--surface);border-radius:20px;box-shadow:var(--shadow);margin-bottom:12px;padding:0 24px}
+summary{cursor:pointer;font-weight:700;padding:24px 0;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}summary::after{content:"+";font-size:1.5rem;line-height:1}details[open] summary::after{content:"\2212"}
+details p{color:var(--soft)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+footer{background:var(--dark);color:#fff;padding:56px 0;text-align:center}
+footer p{margin:0 0 8px;color:rgba(255,255,255,.62);font-size:.95rem}footer strong{color:#fff}
+@media (max-width:860px){.hero-grid,.two,.g3,.g2{grid-template-columns:1fr}.hero .phone{transform:none;max-width:260px}section{padding:56px 0}.hero-grid{gap:48px}.hero{padding-bottom:56px}nav{padding-bottom:40px}.shots{grid-template-columns:repeat(5,230px)}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a class="brand" href="#"><img src="icon-192.png" alt="" width="40" height="40" />Slipbook</a>
+      <a class="small" href="#install">How to install</a>
+    </nav>
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">For Android &middot; Version 1.5</span>
+        <h1>Invoices and receipts, without the stress.</h1>
+        <p class="lead">Type what your customer wants, send the invoice on WhatsApp, tap when they have paid. Slipbook keeps your sales record on your phone, even with no data.</p>
+        <div class="cta">
+          <a class="btn btn-light" href="https://github.com/Anex520/SlipBook/releases/download/latest/Slipbook.apk" download>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>
+            Download for Android
+          </a>
+          <a class="btn btn-ghost" href="#install">How to install</a>
+        </div>
+        <p class="fine">On iPhone? <a href="app/">Open the web version</a> and add it to your Home Screen.</p>
+      </div>
+      <div class="phone"><img src="img/home.webp" alt="Slipbook home screen showing total money made, money owed, and who owes you" width="540" height="1169" /></div>
+    </div>
+  </div>
+</header>
+
+<section id="what">
+  <div class="wrap">
+    <div class="head">
+      <h2>Everything a small shop needs. Nothing it doesn't.</h2>
+      <p class="soft">No account to make. No server. You type your business name once and start selling.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card feature"><h3>Works offline</h3><p>Your records live on your phone. You only need data when you send something on WhatsApp.</p></div>
+      <div class="card feature"><h3>Invoice to receipt</h3><p>Send a clean PDF invoice. When the transfer lands, tap one button and it becomes a receipt with a Paid stamp.</p></div>
+      <div class="card feature"><h3>Who owes you</h3><p>See every unpaid customer, how many invoices, since when, and the total, at a glance.</p></div>
+      <div class="card feature"><h3>Sales record like a sheet</h3><p>Date, customer, amount and status in one roomy table, with totals that follow your search and filters.</p></div>
+      <div class="card feature"><h3>Your price list</h3><p>Save the things you sell once. Tap to add them to an invoice. Past customers fill in themselves.</p></div>
+      <div class="card feature"><h3>Backup and export</h3><p>Save everything in one file to Google Drive or WhatsApp. Export your sales to Excel or Sheets whenever you like.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="how">
+  <div class="wrap two">
+    <div>
+      <h2>From order to receipt in five taps.</h2>
+      <p class="soft">The way you already sell on WhatsApp, only tidier.</p>
+    </div>
+    <ol class="steps" style="color:var(--ink)">
+      <li><div><strong>Type the order</strong><span>Customer name, items and quantities.</span></div></li>
+      <li><div><strong>Send the invoice</strong><span>The PDF goes straight to WhatsApp through your phone's share sheet.</span></div></li>
+      <li><div><strong>Customer pays by transfer</strong><span>They send you the screenshot in the same chat. You can keep it on the invoice.</span></div></li>
+      <li><div><strong>Confirm payment received</strong><span>The invoice becomes a receipt and the sale is recorded.</span></div></li>
+      <li><div><strong>Send the receipt back</strong><span>One tap, same chat.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="head"><h2>A look inside.</h2><p class="soft">Sample data shown. Yours will have your own customers and prices.</p></div>
+  </div>
+  <div class="wrap">
+    <div class="shots">
+      <figure><div class="phone"><img loading="lazy" src="img/home.webp" alt="Home: total money made" width="540" height="1169" /></div><figcaption>Your money at a glance</figcaption></figure>
+      <figure><div class="phone"><img loading="lazy" src="img/owes.webp" alt="Who owes you list" width="540" height="1169" /></div><figcaption>Who owes you</figcaption></figure>
+      <figure><div class="phone"><img loading="lazy" src="img/records.webp" alt="Records table with Paid, Unpaid and Overdue status" width="540" height="1169" /></div><figcaption>Records, like a spreadsheet</figcaption></figure>
+      <figure><div class="phone"><img loading="lazy" src="img/invoice.webp" alt="An invoice ready to send" width="540" height="1169" /></div><figcaption>The invoice</figcaption></figure>
+      <figure><div class="phone"><img loading="lazy" src="img/receipt.webp" alt="A paid receipt with a Paid stamp" width="540" height="1169" /></div><figcaption>The receipt</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="install" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><h2>Install on Android in about a minute.</h2><p class="soft">Slipbook isn't on the Play Store yet, so you install it directly. It's safe, and Android just asks you to confirm.</p></div>
+    <div class="grid g3">
+      <div class="card"><div class="num">1</div><h3>Download</h3><p>Tap the button below. Your phone saves a file called Slipbook.apk.</p><a class="btn btn-dark" href="https://github.com/Anex520/SlipBook/releases/download/latest/Slipbook.apk" download>Download Slipbook</a></div>
+      <div class="card"><div class="num">2</div><h3>Allow the install</h3><p>Open the file. If Android says it can't install apps from this source, tap <strong>Settings</strong> and switch on <strong>Install unknown apps</strong> for your browser (or Files), then go back and tap Install.</p></div>
+      <div class="card"><div class="num">3</div><h3>Play Protect: install anyway</h3><p>If Google Play Protect warns that the app is unknown, tap <strong>More details</strong>, then <strong>Install anyway</strong>. This only appears because the app isn't from the Play Store.</p></div>
+    </div>
+    <p class="soft" style="margin-top:32px">Then open Slipbook, type your business name, and make your first invoice. Later updates: download the new file the same way.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap two">
+    <div class="card">
+      <h3>On an iPhone?</h3>
+      <p>There's no iPhone app yet, but the web version works the same and keeps working offline.</p>
+      <ol style="color:var(--soft);padding-left:20px;margin:16px 0 0">
+        <li>Open <a href="app/"><strong>this link in Safari</strong></a>.</li>
+        <li>Tap the Share button, then <strong>Add to Home Screen</strong>.</li>
+        <li>Open Slipbook from your Home Screen.</li>
+      </ol>
+      <a class="btn btn-dark" href="app/">Open the web version</a>
+    </div>
+    <div>
+      <h2 style="font-size:1.6rem">Questions</h2>
+      <details><summary>Does it work without internet?</summary><p>Yes. Making invoices, recording payments and looking at your sales all work offline. You only need data to send the PDF on WhatsApp.</p></details>
+      <details><summary>Where is my data kept?</summary><p>Only on your phone. There's no account and no server, so nobody else can see your records.</p></details>
+      <details><summary>What if I lose my phone or reinstall?</summary><p>Use <strong>Settings, Back up everything</strong> often and keep the file in Google Drive or send it to yourself on WhatsApp. On the first screen, tap <strong>Restore from a backup file</strong>. Without a backup, the records can't be recovered.</p></details>
+      <details><summary>Why does my phone warn me?</summary><p>Android warns about any app that doesn't come from the Play Store. Tap <strong>Install anyway</strong>.</p></details>
+      <details><summary>Does it cost anything?</summary><p>Version 1.5 is free.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Slipbook version 1.5</p>
+    <p>Powered by <strong>Andex Concepts</strong></p>
+  </div>
+</footer>
+</body>
+</html>
