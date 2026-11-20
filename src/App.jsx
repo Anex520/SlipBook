@@ -7,6 +7,7 @@ import InvoiceEditor from './pages/InvoiceEditor'
 import InvoiceDetail from './pages/InvoiceDetail'
 import Items from './pages/Items'
 import Settings from './pages/Settings'
+import Setup from './pages/Setup'
 
 export default function App() {
   const { ready, error, profile } = useApp()
@@ -31,6 +32,8 @@ export default function App() {
     )
   }
   if (!profile) return <Onboarding />
+  // New accounts get a short guided start. Older accounts have no 'setup' value and never see it.
+  if (['welcome', 'bank', 'prices'].includes(profile.setup)) return <Setup />
 
   let page
   let active = 'home'

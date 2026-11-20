@@ -142,6 +142,18 @@ export default function Home() {
         </div>
       </section>
 
+      {profile.setup && !profile.accountNumber && (
+        <div className="banner" role="status">
+          <p>
+            <strong>Add your bank details.</strong> Customers need them to pay you. They are printed on every
+            invoice.
+          </p>
+          <Link to="/settings" className="btn btn-primary btn-small">
+            Add bank details
+          </Link>
+        </div>
+      )}
+
       {needBackup && (
         <div className="banner" role="status">
           <p>

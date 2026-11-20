@@ -1,4 +1,4 @@
-# Slipbook (version 1.5)
+# Slipbook (version 1.6)
 
 Invoices, receipts and a sales record that work without internet. No account: the owner types a business
 name once. Everything is stored on the phone.
@@ -36,6 +36,12 @@ spreadsheet-style records with totals, money by month), a floating tab bar, rest
 new icons, and a download website in `site/`. The data model, store, routes and behaviour are unchanged.
 If `npm install` can't find `@fontsource/plus-jakarta-sans`, go back to `@fontsource/schibsted-grotesk` and
 `@fontsource/zilla-slab` (see the note in `src/main.jsx`) and the font names at the top of `src/index.css`.
+
+## What changed in 1.6
+New accounts get a guided first start: a welcome screen, then bank details, then an offer to build the price list.
+Every step can be skipped, and a "Add your bank details" banner on Home remains until the account number is saved.
+The progress is stored as `profile.setup` ('welcome', 'bank', 'prices', 'done'). Accounts made before 1.6, and
+restored backups from them, have no `setup` value, so they never see the guide or the banner.
 
 ## The download website (GitHub Pages)
 `site/index.html` is the page people visit to install the app. The workflow also publishes the web version of the

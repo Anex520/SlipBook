@@ -54,7 +54,7 @@ export function AppProvider({ children }) {
     return next
   }, [])
 
-  const createProfile = useCallback((businessName, phone = '') => saveProfile({ businessName, phone, createdAt: Date.now() }), [saveProfile])
+  const createProfile = useCallback((businessName, phone = '') => saveProfile({ businessName, phone, createdAt: Date.now(), setup: 'welcome' }), [saveProfile])
 
   const saveItem = useCallback(async (item) => {
     const row = { id: item.id || newId(), name: item.name.trim(), price: Number(item.price) || 0 }

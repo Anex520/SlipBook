@@ -50,7 +50,7 @@ jobs:
 
       - name: Set the version (each build is newer than the last)
         run: |
-          sed -i -E "s/versionCode [0-9]+/versionCode ${{ github.run_number }}/; s/versionName \"[^\"]*\"/versionName \"1.5.${{ github.run_number }}\"/" android/app/build.gradle
+          sed -i -E "s/versionCode [0-9]+/versionCode ${{ github.run_number }}/; s/versionName \"[^\"]*\"/versionName \"1.6.${{ github.run_number }}\"/" android/app/build.gradle
 
       - name: Build a signed APK
         if: env.KEYSTORE_BASE64 != ''

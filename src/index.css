@@ -1293,6 +1293,94 @@ input[type='checkbox'] {
   background: transparent;
 }
 
+
+/* ---------- First-run guide (welcome and setup steps) ---------- */
+
+.welcome {
+  position: relative;
+  overflow: hidden;
+  margin: 8px 0 24px;
+  padding: 32px 24px;
+  border-radius: 28px;
+  background: var(--hero);
+  border: 1px solid var(--hero-border);
+  color: #fff;
+  box-shadow: var(--shadow-bar);
+}
+.welcome::after {
+  content: '';
+  position: absolute;
+  right: -72px;
+  top: -96px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 70%);
+  pointer-events: none;
+}
+.welcome h1 {
+  margin: 8px 0 16px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+.welcome-kicker {
+  display: inline-block;
+  margin: 0;
+  padding: 4px 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.welcome-text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+}
+.promises {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 8px 20px;
+  background: var(--surface);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+.promises li {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.promises li:last-child {
+  border-bottom: 0;
+}
+.promises strong,
+.promises span {
+  display: block;
+}
+.promises span {
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.stepdots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.stepdots span:not(.stepdots-text) {
+  width: 32px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--rule);
+}
+.stepdots span.on {
+  background: var(--ink);
+}
+.stepdots-text {
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
 /* ---------- Small screens ---------- */
 
 @media (max-width: 640px) {
